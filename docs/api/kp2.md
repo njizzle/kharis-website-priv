@@ -16,14 +16,14 @@ Contact form → `contact_messages` with `workspace: "kp2"`.
 
 **Body (JSON)**
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `name` | Yes | Split into first/last |
-| `email` | Yes | |
-| `phone` | No | |
-| `topic` | Yes | `Sunday visit`, `Prayer`, `Pastoral`, `Baptism`, `Giving`, `General` |
-| `branch` | No | Matched against `branches.name` when possible |
-| `message` | Yes | Min 8 chars; `From: KP2` line prepended |
+| Field     | Required | Notes                                                                |
+| --------- | -------- | -------------------------------------------------------------------- |
+| `name`    | Yes      | Split into first/last                                                |
+| `email`   | Yes      |                                                                      |
+| `phone`   | No       |                                                                      |
+| `topic`   | Yes      | `Sunday visit`, `Prayer`, `Pastoral`, `Baptism`, `Giving`, `General` |
+| `branch`  | No       | Matched against `branches.name` when possible                        |
+| `message` | Yes      | Min 8 chars; `From: KP2` line prepended                              |
 
 **Success:** `{ "ok": true }`  
 **Errors:** `400` · `503` missing service role / URL · `500` insert failure
@@ -70,11 +70,11 @@ policy `"testimonies anon submit"` (forces unpublished).
 
 **Body (JSON)**
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `firstName`, `lastName`, `details`, `anonymous` | Yes | |
-| `category` | Yes | Fixed set: Deliverance, Education, Family/Marriage, Finances/Miracle Money, Health/Healing, Housing/Mortgage, Job/Career, Safe Passage/Protection, Salvation, Unusual Favour, Other |
-| `preferredName`, `mobile` | No | |
+| Field                                           | Required | Notes                                                                                                                                                                               |
+| ----------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `firstName`, `lastName`, `details`, `anonymous` | Yes      |                                                                                                                                                                                     |
+| `category`                                      | Yes      | Fixed set: Deliverance, Education, Family/Marriage, Finances/Miracle Money, Health/Healing, Housing/Mortgage, Job/Career, Safe Passage/Protection, Salvation, Unusual Favour, Other |
+| `preferredName`, `mobile`                       | No       |                                                                                                                                                                                     |
 
 **Success:** `201` `{ "success": true, "id": "…" }`  
 **Errors:** `400` · `500`

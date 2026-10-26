@@ -3,12 +3,13 @@
 Plain-language reference for how the three apps talk to each other and to the
 shared Supabase project.
 
-| Doc | What it covers |
-| --- | --- |
-| [Supabase integration](./supabase.md) | Shared database, workspaces, keys, who reads/writes what |
-| [Main site APIs](./main.md) | `kharis.org` — `/api/*` |
-| [KP2 site APIs](./kp2.md) | `kharis.org/kp2` — `/kp2/api/*` |
-| [Content studio APIs](./content.md) | `content.kharis.org` — `/api/*` |
+| Doc                                   | What it covers                                                               |
+| ------------------------------------- | ---------------------------------------------------------------------------- |
+| [Supabase integration](./supabase.md) | Shared database, workspaces, keys, who reads/writes what, security checklist |
+| [RLS checklist](./rls-checklist.md)   | Live policies that must exist in the hosted project                          |
+| [Main site APIs](./main.md)           | `kharis.org` — `/api/*`                                                      |
+| [KP2 site APIs](./kp2.md)             | `kharis.org/kp2` — `/kp2/api/*`                                              |
+| [Content studio APIs](./content.md)   | `content.kharis.org` — `/api/*`                                              |
 
 ## Big picture
 
@@ -37,11 +38,11 @@ Content Studio (signed-in editors)
 
 ## Quick endpoint map
 
-| App | Base URL | Auth on `/api` |
-| --- | --- | --- |
-| Main | `https://kharis.org` | None (all public) |
-| KP2 | `https://kharis.org/kp2` | None (all public) |
-| Content | `https://content.kharis.org` | Bearer JWT on chat, sermon search, uploads |
+| App     | Base URL                     | Auth on `/api`                                      |
+| ------- | ---------------------------- | --------------------------------------------------- |
+| Main    | `https://kharis.org`         | None (all public)                                   |
+| KP2     | `https://kharis.org/kp2`     | None (all public)                                   |
+| Content | `https://content.kharis.org` | Bearer JWT on chat, sermon search, uploads, geocode |
 
 Local ports: main and KP2 on `localhost:3000` (KP2 under `/kp2`); content on
 `localhost:3002`.

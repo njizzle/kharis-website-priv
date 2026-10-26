@@ -13,19 +13,19 @@ Saves a contact form message into `contact_messages`.
 
 **Body (JSON)**
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `name` **or** `first` / `last` | Yes | Name max 120 chars |
-| `email` | Yes | Valid email, max 254 |
-| `phone` | No | Max 40 |
-| `topic` | Yes | One of: `Sunday visit`, `Prayer`, `Giving`, `Pastoral`, `General`, `Chat follow-up`, `Baptism` |
-| `branch` | No | Branch name (max 120) |
-| `branchId` | No | UUID; preferred when the form knows the id |
-| `message` | Yes | Min 8, max 12000 chars |
-| `chatTicket` | No | Grace handoff id (max 64) |
-| `chatTranscript` | No | Max 6000 chars |
+| Field                          | Required | Notes                                                                                          |
+| ------------------------------ | -------- | ---------------------------------------------------------------------------------------------- |
+| `name` **or** `first` / `last` | Yes      | Name max 120 chars                                                                             |
+| `email`                        | Yes      | Valid email, max 254                                                                           |
+| `phone`                        | No       | Max 40                                                                                         |
+| `topic`                        | Yes      | One of: `Sunday visit`, `Prayer`, `Giving`, `Pastoral`, `General`, `Chat follow-up`, `Baptism` |
+| `branch`                       | No       | Branch name (max 120)                                                                          |
+| `branchId`                     | No       | UUID; preferred when the form knows the id                                                     |
+| `message`                      | Yes      | Min 8, max 12000 chars                                                                         |
+| `chatTicket`                   | No       | Grace handoff id (max 64)                                                                      |
+| `chatTranscript`               | No       | Max 6000 chars                                                                                 |
 
-**Success:** `{ "ok": true, "id": "<uuid>", "received": { … } }`  
+**Success:** `{ "ok": true, "id": "<uuid>" }`  
 In local dev without Supabase credentials: also `"storage": "local-development"`.
 
 **Errors:** `400` validation · `500` config / insert failure
@@ -42,15 +42,15 @@ Plan-a-visit submissions → `visitors`.
 
 **Body (JSON)**
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `name` | Yes | Max 120 |
-| `email` | Yes | Max 254 |
-| `phone` | No | Max 40 |
-| `branch` | No | Max 120 |
-| `gathering` | No | Max 160 |
-| `children` | No | Boolean |
-| `consent` | Yes | Must be `true` |
+| Field       | Required | Notes          |
+| ----------- | -------- | -------------- |
+| `name`      | Yes      | Max 120        |
+| `email`     | Yes      | Max 254        |
+| `phone`     | No       | Max 40         |
+| `branch`    | No       | Max 120        |
+| `gathering` | No       | Max 160        |
+| `children`  | No       | Boolean        |
+| `consent`   | Yes      | Must be `true` |
 
 **Success:** `{ "ok": true }`  
 **Errors:** `400` · `500`
@@ -65,15 +65,15 @@ Testimony form → unpublished row in `testimonies` (`workspace: "kharis"`).
 
 **Body (JSON)**
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `firstName` | Yes | |
-| `lastName` | Yes | |
-| `category` | Yes | Free text from the form |
-| `details` | Yes | Full story |
-| `preferredName` | No | Used as display name when set |
-| `mobile` | No | Stored as `phone` |
-| `anonymous` | No | `"Yes"` marks `is_anonymous` |
+| Field           | Required | Notes                                                                                                                                                                                             |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `firstName`     | Yes      | Max 80                                                                                                                                                                                            |
+| `lastName`      | Yes      | Max 80                                                                                                                                                                                            |
+| `category`      | Yes      | Fixed set (same as KP2): Deliverance, Education, Family/Marriage, Finances/Miracle Money, Health/Healing, Housing/Mortgage, Job/Career, Safe Passage/Protection, Salvation, Unusual Favour, Other |
+| `details`       | Yes      | Full story, max 8000                                                                                                                                                                              |
+| `preferredName` | No       | Used as display name when set (max 80)                                                                                                                                                            |
+| `mobile`        | No       | Stored as `phone` (max 40)                                                                                                                                                                        |
+| `anonymous`     | No       | `"Yes"` marks `is_anonymous`                                                                                                                                                                      |
 
 **Success:** `201` `{ "success": true, "id": "<uuid>" }`  
 **Errors:** `400` missing fields · `500`
@@ -92,7 +92,7 @@ Grace chatbot for the main site (Life / messages context).
 { "messages": [{ "role": "user" | "assistant", "content": "…" }] }
 ```
 
-- Max 16 messages; each content ≤ 2000 characters  
+- Max 16 messages; each content ≤ 2000 characters
 - Last message must be `user`
 
 **Success (with `GEMINI_API_KEY`):** Server-Sent Events (`text/event-stream`)

@@ -36,10 +36,10 @@ Search or hydrate sermons from the public messages catalogue on R2.
 **Auth:** required  
 **Query**
 
-| Param | Notes |
-| --- | --- |
-| `q` | Search string, max 80 chars (returns up to 12) |
-| `ids` | Comma-separated ids, max 40 |
+| Param | Notes                                          |
+| ----- | ---------------------------------------------- |
+| `q`   | Search string, max 80 chars (returns up to 12) |
+| `ids` | Comma-separated ids, max 40                    |
 
 Provide `q` **or** `ids`.
 
@@ -61,11 +61,11 @@ Branch image folder ops against Cloudflare R2 (`kharis-images`).
 
 Form fields:
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `branchId` | Yes | Existing branch UUID |
-| `category` | Yes | `hero` \| `gallery` \| `venue` \| `pastor` |
-| `file` | Yes | JPEG/PNG/WebP/GIF/AVIF, ≤ 8MB |
+| Field      | Required | Notes                                      |
+| ---------- | -------- | ------------------------------------------ |
+| `branchId` | Yes      | Existing branch UUID                       |
+| `category` | Yes      | `hero` \| `gallery` \| `venue` \| `pastor` |
+| `file`     | Yes      | JPEG/PNG/WebP/GIF/AVIF, ≤ 8MB              |
 
 **Success:** `{ "key", "publicUrl", "contentType" }`
 
@@ -98,20 +98,20 @@ decide what is still referenced.
 
 Address / reverse geocode for venue pins.
 
-**Auth:** none (intended for studio UI; protect the Maps key with HTTP referrer / API restrictions)
+**Auth:** required — Bearer Supabase JWT (studio session). Also protect the Maps key with HTTP referrer / API restrictions.
 
 **Query modes**
 
-| Mode | Params |
-| --- | --- |
-| Reverse | `lat` + `lng` |
-| Exact address | `address=…` |
-| Text search | `q` or `address` (2–200 chars) |
+| Mode          | Params                         |
+| ------------- | ------------------------------ |
+| Reverse       | `lat` + `lng`                  |
+| Exact address | `address=…`                    |
+| Text search   | `q` or `address` (2–200 chars) |
 
 **Success:** `{ "results": [{ "label", "address", "postcode", "city", "latitude", "longitude" }] }` (max 5)  
-**Errors:** `400` · `503` missing `GOOGLE_MAPS_API_KEY` · `502`
+**Errors:** `401` · `400` · `503` missing `GOOGLE_MAPS_API_KEY` · `502`
 
-**External:** Google Geocoding + Places Text Search. **No Supabase.**
+**External:** Google Geocoding + Places Text Search. **Supabase:** JWT validation only.
 
 ---
 
@@ -128,7 +128,7 @@ Proxies a branch image from R2 when the key starts with `browser-safe`
 
 ---
 
-## Studio data that is *not* Next API routes
+## Studio data that is _not_ Next API routes
 
 Signed-in clients use Supabase JS against tables such as:
 
