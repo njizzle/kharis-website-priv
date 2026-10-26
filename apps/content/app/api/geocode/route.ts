@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { studioUserFromRequest } from "@/lib/studio-auth";
 
 type GeoResult = {
   label: string;
@@ -57,6 +58,14 @@ function rejected(status: string | undefined) {
 }
 
 export async function GET(request: Request) {
+  const studio = await studioUserFromRequest(request);
+  if (!studio) {
+    return NextResponse.json(
+      { results: [], error: "Sign in again to search addresses." },
+      { status: 401 },
+    );
+  }
+
   const key = process.env.GOOGLE_MAPS_API_KEY;
   if (!key) {
     return NextResponse.json(

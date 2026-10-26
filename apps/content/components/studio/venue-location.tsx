@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { VenueDraft } from "@/lib/branch-types";
+import { getSupabase } from "@/lib/supabase";
 
 type GeoResult = {
   label: string;
@@ -15,8 +16,14 @@ type GeoResult = {
 };
 
 async function lookup(params: Record<string, string>) {
+  const { data } = await getSupabase().auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) throw new Error("Sign in again to search addresses.");
+
   const search = new URLSearchParams(params);
-  const response = await fetch(`/api/geocode?${search.toString()}`);
+  const response = await fetch(`/api/geocode?${search.toString()}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   const body = (await response.json()) as { results?: GeoResult[]; error?: string };
   if (!response.ok) throw new Error(body.error || "Address search failed.");
   return body.results ?? [];

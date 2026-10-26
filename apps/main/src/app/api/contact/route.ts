@@ -235,15 +235,6 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       id: row.id,
-      received: {
-        first,
-        last,
-        email,
-        phone,
-        topic,
-        branch: filed.branch_name,
-        messageLength: message.length,
-      },
     });
   } catch (error) {
     console.error("Supabase contact request failed:", error);

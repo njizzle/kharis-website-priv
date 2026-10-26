@@ -97,6 +97,7 @@ export async function getTestimonies(
     .from("testimonies")
     .select(SAFE_TESTIMONY_FIELDS)
     .in("workspace", [workspace, "general"])
+    .eq("is_published", true)
     .eq(featureColumn, true);
 
   if (error) {

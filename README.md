@@ -60,3 +60,8 @@ that host (`/branches`, `/events`) instead of under a path.
 - `supabase/` — migrations for the Supabase project the apps share.
   Testimonies and other rows are scoped by a `workspace` discriminator
   (`general` | `app` | `kharis` | `kp2`). The content studio edits those rows.
+
+## Docs
+
+- [API & Supabase overview](docs/api/README.md) — how the apps share one
+  Supabase project, plus endpoint reference for main, KP2, and the content studio.
